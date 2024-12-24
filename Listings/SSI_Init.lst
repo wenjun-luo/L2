@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   SSI_INIT                                                          12/24/2024 15:29:38 PAGE 1   
+C51 COMPILER V9.57.0.0   SSI_INIT                                                          12/24/2024 17:12:28 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE SSI_INIT
@@ -62,7 +62,7 @@ line level    source
   51   1              
   52   1              if(SSCON0&0x02)    //发送标志位判断
   53   1              {
-C51 COMPILER V9.57.0.0   SSI_INIT                                                          12/24/2024 15:29:38 PAGE 2   
+C51 COMPILER V9.57.0.0   SSI_INIT                                                          12/24/2024 17:12:28 PAGE 2   
 
   54   2                      SSCON0 &= 0xFD;
   55   2                      Uart1SendFlag = 1;

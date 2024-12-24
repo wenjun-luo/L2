@@ -2,7 +2,7 @@
 
 extern TagRingBuffer g_comunicate_rb;
 uint32_t  exKeyValueFlag;
-uint8_t Uart1_RxData[7] = {0};   //接收数据数组
+uint8_t Uart1_RxData[UART_RECV_TOTALLEN] = {0};   //接收数据数组
 bit ChangeFlag = 0;    
 bit BreatheLED = 0;   //呼吸灯标志位
 
@@ -47,18 +47,18 @@ u8 handle_tft2mcu_datacheck(uint8_t *buf, int len)
          
 }
 
-uint8_t Uart1_TxData[7] = {0xAA,0x88,0x07}; //要发送的数据帧
+uint8_t Uart1_TxData[UART_SEND_TOTALLEN] = {0xAA,0x88,0x07}; //要发送的数据帧
 uint8_t SwitchFlag = 0;                     //开关输出数据
 uint8_t RadarFlag = 0;                      //雷达输出数据
 //发送数据帧处理
 void loop_write_comunicate_data(void)
 {
-    Uart1_TxData[0] = 0xAA;
-	Uart1_TxData[1] = 0x88;
-	Uart1_TxData[2] = 0x07;
-	Uart1_TxData[3] =  ((Uart1_TxData[3] &0xfe)| RadarFlag);
-	Uart1_TxData[4] =  ((Uart1_TxData[4] &0xfe)| SwitchFlag);
-	Uart1_TxData[6] =  handle_mcu2tft_data(Uart1_TxData,Uart1_TxData[2]);
+    Uart1_TxData[UART_SEND_BYTE0] = SEND_HANDER1;
+	Uart1_TxData[UART_SEND_BYTE1] = SEND_HANDER2;
+	Uart1_TxData[UART_SEND_BYTE2] = UART_SEND_TOTALLEN;
+	Uart1_TxData[UART_SEND_BYTE3] =  ((Uart1_TxData[UART_SEND_BYTE3] &0xfe)| RadarFlag);
+	Uart1_TxData[UART_SEND_BYTE4] =  ((Uart1_TxData[UART_SEND_BYTE4] &0xfe)| SwitchFlag);
+	Uart1_TxData[UART_SEND_CHECK] =  handle_mcu2tft_data(Uart1_TxData,Uart1_TxData[UART_SEND_BYTE2]);
       
 }
 
@@ -67,55 +67,35 @@ void loop_recv_comunicate_data(uint8_t *com_data)
 {
     static uint8_t byte_index = 0;
     while (ringBuffer_pop(&g_comunicate_rb, com_data+byte_index))
-    {
-		        
+    {	        
         //com_data[byte_index] = ch;
-        switch (byte_index)
-        {
+        switch (byte_index){
         case 0:
-			if (com_data[byte_index] == 0xAA)
-            {
-				
-                byte_index++;
-				
+			if (com_data[byte_index] == RECV_HANDER1){				
+                byte_index++;				
             }else{   
 				byte_index = 0;
 			}
             break;
 		case 1:
-			if (com_data[byte_index] == 0x55)
-            {
-               
+			if (com_data[byte_index] == RECV_HANDER2){            
                 byte_index++;
-
-            }
-			 else
-			{    
-				
+            }else{    				
 				byte_index = 0;
 			}
 			break;
         case 2:
-			if (com_data[byte_index] == 0x07)
-            {
-                
-                byte_index++;
-		
-				
-            }
-			 else
-			{    
+			if (com_data[byte_index] == UART_RECV_TOTALLEN){             
+                byte_index++;			
+            }else{    
 				byte_index = 0;
 			}
             break;
-
         default:
             byte_index++;
-            if (byte_index >= com_data[2] || byte_index > 0x07)
-            {   
-				
+            if (byte_index >= com_data[UART_RECV_BYTE2] || byte_index > UART_RECV_TOTALLEN){   			
                // handle_tft2mcu_data(com_data,byte_index); // 处理接收数据
-				if(handle_tft2mcu_datacheck(com_data,com_data[2]) == com_data[byte_index - 1]){
+				if(handle_tft2mcu_datacheck(com_data,com_data[UART_RECV_BYTE2]) == com_data[byte_index - 1]){
 					handle_tft2mcu_data(com_data);  //处理数据
 				}
                 byte_index = 0;
@@ -164,7 +144,9 @@ void project(void)
 			{
 				UART_Sendstring(Uart1_TxData);   //发送数据
 			}
-
+			//呼吸灯		
+			if(BreatheLED)
+				PWMDTY1_Set();
             TouchKeyRestart();		
 			
         }

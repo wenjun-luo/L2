@@ -1,4 +1,4 @@
-C51 COMPILER V9.57.0.0   MAIN                                                              12/24/2024 15:29:37 PAGE 1   
+C51 COMPILER V9.57.0.0   MAIN                                                              12/24/2024 17:17:05 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
@@ -10,33 +10,27 @@ COMPILER INVOKED BY: F:\MDK5.36\C51\BIN\C51.EXE c\main.c LARGE OMF2 OPTIMIZE(0,S
 line level    source
 
    1          #include "project.h"
-   2          extern void PWM_Init(void);
-   3          extern void UART1_Init(uint Freq,unsigned long int baud);
-   4          extern bit BreatheLED;
-   5          void main(void)
-   6          {  
-   7   1              // WDTCON |= 0x10;                  //清看门狗
-   8   1          IO_Init();
-   9   1          Timer_Test();
-  10   1              PWM_Init();
-  11   1              Radar_init();
-  12   1          TouchKeyInit();
-  13   1              UART1_Init(12,9600);
-  14   1          while(1)
-  15   1          {
-  16   2                      //功能总入口
-  17   2               project();   
-  18   2                      //呼吸灯                
-  19   2                      if(BreatheLED)
-  20   2                              PWMDTY1_Set();
-  21   2                      
-  22   2          }
-  23   1          
-  24   1      }
+   2          void main(void)
+   3          {  
+   4   1              // WDTCON |= 0x10;                  //清看门狗
+   5   1          IO_Init();
+   6   1          Timer_Test();
+   7   1              PWM_Init();
+   8   1              Radar_init();
+   9   1          TouchKeyInit();
+  10   1              UART1_Init(12,9600);
+  11   1          while(1)
+  12   1          {
+  13   2                      //功能总入口
+  14   2               project();   
+  15   2                                      
+  16   2          }
+  17   1          
+  18   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     44    ----
+   CODE SIZE        =     38    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
