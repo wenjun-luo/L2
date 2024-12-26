@@ -1,11 +1,10 @@
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 1   
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 1   
 
 
 C51 COMPILER V9.57.0.0, COMPILATION OF MODULE TKDRIVER
 OBJECT MODULE PLACED IN .\Objects\TKDriver.obj
-COMPILER INVOKED BY: F:\MDK5.36\C51\BIN\C51.EXE User\TKDriver.C LARGE OMF2 OPTIMIZE(0,SPEED) BROWSE INCDIR(C:\Users\Admi
-                    -nistrator\Desktop\SC92F8413_8412_8411_Demo_Code\TKDriver\C;.\H;.\User;.\User) DEBUG PRINT(.\Listings\TKDriver.lst) OBJEC
-                    -T(.\Objects\TKDriver.obj)
+COMPILER INVOKED BY: F:\MDK5.36\C51\BIN\C51.EXE User\TKDriver.C LARGE OMF2 OPTIMIZE(0,SPEED) BROWSE INCDIR(.\H;.\User;.\
+                    -TKDriver\C) DEBUG PRINT(.\Listings\TKDriver.lst) OBJECT(.\Objects\TKDriver.obj)
 
 line level    source
 
@@ -62,9 +61,9 @@ line level    source
   51          unsigned        int     xdata       MultipleLNum;                                               // 多按键干扰计数
   52          
   53          //外部变量接口
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 2   
-
   54          extern  unsigned        char    data            CurrentChannelMax;              //当前选中的keysensor的个数
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 2   
+
   55          extern  bit  bMultiple; //多按键标志    
   56          extern  bit  GetIsNeedUpdateBaseline(void);
   57          extern  void SetNeedUpdateBaseline(void);
@@ -126,9 +125,9 @@ line level    source
  109          //**********************************************************************************
  110          /**************************************************
  111          *函数名称：unsigned int SetOneKeyPushResetTime(void) 
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 3   
-
  112          *函数功能：按键最长的输出时间
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 3   
+
  113          *入口参数：void
  114          *出口参数：unsigned int SOCAPI_SET_KEY_CONTI_TIME
  115          *备注    ：这个返回值的设置， 是根据有多长时间启动TouchKeyRestart（）一次
@@ -190,9 +189,9 @@ line level    source
  171          *入口参数：unsigned char
  172          *出口参数：unsigned char 
  173          *备注    ：
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 4   
-
  174          **************************************************/
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 4   
+
  175          unsigned char  GetScanTimeValue(unsigned char i)
  176          { 
  177   1              return TKChannelCfg[i][SCANTIME];         //
@@ -254,9 +253,9 @@ line level    source
  233          int GetTKYzThreshold(unsigned char i)
  234          {       
  235   1              unsigned int SetFingerThresholdtmp; 
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 5   
-
  236   1              
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 5   
+
  237   1              SetFingerThresholdtmp = GetCurrFingerValue(i); 
  238   1          SetFingerThresholdtmp = SetFingerThresholdtmp*SOCAPI_INHIBITION_ZONE/10;
  239   1      
@@ -318,9 +317,9 @@ line level    source
  295          *函数功能：初始化TK寄存器
  296          *入口参数：void
  297          *出口参数：void
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 6   
-
  298          *备注    ：
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 6   
+
  299          **************************************************/
  300          void TouchKeyCFGInit(void)
  301          {
@@ -382,9 +381,9 @@ line level    source
  356   3                      }                       
  357   2      
  358   2                      if(bMultiple == 0)                                                      //进入按键判断
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 7   
-
  359   2                      {               
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 7   
+
  360   3                              if(KeyData != 0x0)                                          //单个按键达到多长时间就update baseline ,松手检测
  361   3                              {                       
  362   4                                      UpdateBaseLNum++; 
@@ -446,9 +445,9 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
    DATA SIZE        =     17    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/23/2024 14:01:08 PAGE 8   
-
    EDATA SIZE       =   ----    ----
+C51 COMPILER V9.57.0.0   TKDRIVER                                                          12/26/2024 16:39:20 PAGE 8   
+
    HDATA SIZE       =   ----    ----
    XDATA CONST SIZE =   ----    ----
    FAR CONST SIZE   =   ----    ----

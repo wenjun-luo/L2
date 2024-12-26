@@ -8,14 +8,11 @@
 //************************************************************************************************
 #ifndef __S_TOUCHKEYCFG_H__
 #define __S_TOUCHKEYCFG_H__
-#define		    SOCAPI_SET_TOUCHKEY_TOTAL					  4
-#define			SOCAPI_SET_TOUCHKEY_CHANNEL					  0x000C1200
+#define		    SOCAPI_SET_TOUCHKEY_TOTAL					  1
+#define			SOCAPI_SET_TOUCHKEY_CHANNEL					  0x00000001
 #define			SOCAPI_SET_TOUCHKEY_CHANNEL2			      0x00000000
-unsigned int  code TKCFG[17] = {0,0,0,5,10,3000,200,100,2,0,0,4,0,1,65535,65535,69}; 
-unsigned char code TKChannelCfg[4][8]={
-0x02,0x32,0x04,0x08,0x32,0x05,0x07,0x88,
-0x02,0x32,0x04,0x08,0x38,0x05,0x07,0x7b,
-0x02,0x32,0x04,0x08,0x2c,0x05,0x07,0xe0,
-0x02,0x32,0x04,0x08,0x23,0x05,0x07,0xd0,
+unsigned int  code TKCFG[17] = {0,0,0,5,10,3000,200,100,2,0,0,4,0,1,65535,65535,20}; 
+unsigned char code TKChannelCfg[1][8]={
+0x02,0x32,0x04,0x08,0x3b,0x05,0x02,0x59,
 };
 #endif

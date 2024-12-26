@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>C:\Users\Administrator\Desktop\SC92F8413_8412_8411_Demo_Code\TKDriver\C;.\H;.\User;.\User</IncludePath>
+              <IncludePath>.\H;.\User;.\TKDriver\C</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
