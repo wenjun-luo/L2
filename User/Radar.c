@@ -10,7 +10,7 @@ void Radar_open(void)
 	//l_1ms_cnt = 0;
 }
 //高电平自检两秒和低电平1秒
-unsigned char Radar_check(void)
+void Radar_check(void)
 {
 	while(P14 == 1); //自检等待低电平出现
 	l_1ms_cnt = 0;
@@ -20,10 +20,10 @@ unsigned char Radar_check(void)
 		if(l_1ms_cnt == 1000)
 			break;
 	}
-	if(P14 == 0)
-		return 1;
-	else
-		return 0;
+	// if(P14 == 0)
+	// 	return 1;
+	// else
+	// 	return 0;
     	
 }
 //检测有无感应，有感应为1，无感应为0
