@@ -387,34 +387,9 @@
               <FilePath>.\c\main.c</FilePath>
             </File>
             <File>
-              <FileName>BTM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\BTM.c</FilePath>
-            </File>
-            <File>
-              <FileName>EX_Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\EX_Init.c</FilePath>
-            </File>
-            <File>
-              <FileName>IAP_Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\IAP_Init.c</FilePath>
-            </File>
-            <File>
               <FileName>IO_Init.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\c\IO_Init.c</FilePath>
-            </File>
-            <File>
-              <FileName>LCD_Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\LCD_Init.c</FilePath>
-            </File>
-            <File>
-              <FileName>Multiplication_Division.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\Multiplication_Division.c</FilePath>
             </File>
             <File>
               <FileName>PWM_Init.c</FileName>
@@ -430,16 +405,6 @@
               <FileName>Timer_Init.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\c\Timer_Init.c</FilePath>
-            </File>
-            <File>
-              <FileName>Uart_Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\Uart_Init.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC_Init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\c\ADC_Init.c</FilePath>
             </File>
           </Files>
         </Group>
