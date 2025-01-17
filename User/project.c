@@ -50,6 +50,7 @@ u8 handle_tft2mcu_datacheck(uint8_t *buf, int len)
 uint8_t Uart1_TxData[UART_SEND_TOTALLEN] = {0xAA,0x88,0x07}; //要发送的数据帧
 uint8_t SwitchFlag = 0;                     //开关输出数据
 uint8_t RadarFlag = 0;                      //雷达输出数据
+uint8_t Radar_Ischeck_Flag = 0;
 //发送数据帧处理
 void loop_write_comunicate_data(void)
 {
@@ -108,8 +109,8 @@ void loop_recv_comunicate_data(uint8_t *com_data)
 //雷达检测
 void Radar_work(void)
 {
-		RadarFlag = Radar_Ischeck();
-		if( RadarFlag)
+		Radar_Ischeck_Flag = Radar_Ischeck();
+		if( Radar_Ischeck_Flag)
 		{
 			RadarFlag = 0x01;
 		}

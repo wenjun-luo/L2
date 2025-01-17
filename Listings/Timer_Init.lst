@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/14/2025 13:50:51 PAGE 1   
+C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/17/2025 13:53:20 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE TIMER_INIT
@@ -62,7 +62,7 @@ line level    source
   52   1              ET2 = 1; // 定时器2允许
   53   1              TR2 = 1; // 打开定时器2
   54   1      
-C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/14/2025 13:50:51 PAGE 2   
+C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/17/2025 13:53:20 PAGE 2   
 
   55   1              /*
   56   1              //Timer2捕获功能
@@ -126,7 +126,7 @@ line level    source
  114          //200ms是否到达，若到达则清空重新累计
  115          uint8_t is_200ms_tick(uint8_t clear)
  116          {
-C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/14/2025 13:50:51 PAGE 3   
+C51 COMPILER V9.59.0.0   TIMER_INIT                                                        01/17/2025 13:53:20 PAGE 3   
 
  117   1              if (g_flag_200ms)
  118   1              {

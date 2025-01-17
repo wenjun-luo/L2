@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   PROJECT                                                           01/14/2025 13:50:52 PAGE 1   
+C51 COMPILER V9.59.0.0   PROJECT                                                           01/17/2025 13:56:31 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE PROJECT
@@ -60,117 +60,118 @@ line level    source
   50          uint8_t Uart1_TxData[UART_SEND_TOTALLEN] = {0xAA,0x88,0x07}; //要发送的数据帧
   51          uint8_t SwitchFlag = 0;                     //开关输出数据
   52          uint8_t RadarFlag = 0;                      //雷达输出数据
-  53          //发送数据帧处理
-  54          void loop_write_comunicate_data(void)
-C51 COMPILER V9.59.0.0   PROJECT                                                           01/14/2025 13:50:52 PAGE 2   
+  53          uint8_t Radar_Ischeck_Flag = 0;
+  54          //发送数据帧处理
+C51 COMPILER V9.59.0.0   PROJECT                                                           01/17/2025 13:56:31 PAGE 2   
 
-  55          {
-  56   1          Uart1_TxData[UART_SEND_BYTE0] = SEND_HANDER1;
-  57   1              Uart1_TxData[UART_SEND_BYTE1] = SEND_HANDER2;
-  58   1              Uart1_TxData[UART_SEND_BYTE2] = UART_SEND_TOTALLEN;
-  59   1              Uart1_TxData[UART_SEND_BYTE3] =  ((Uart1_TxData[UART_SEND_BYTE3] &0xfe)| RadarFlag);
-  60   1              Uart1_TxData[UART_SEND_BYTE4] =  ((Uart1_TxData[UART_SEND_BYTE4] &0xfe)| SwitchFlag);
-  61   1              Uart1_TxData[UART_SEND_CHECK] =  handle_mcu2tft_data(Uart1_TxData,Uart1_TxData[UART_SEND_BYTE2]);
-  62   1            
-  63   1      }
-  64          
-  65          //接收数据帧处理
-  66          void loop_recv_comunicate_data(uint8_t *com_data)
-  67          {
-  68   1          static uint8_t byte_index = 0;
-  69   1          while (ringBuffer_pop(&g_comunicate_rb, com_data+byte_index))
-  70   1          {           
-  71   2              //com_data[byte_index] = ch;
-  72   2              switch (byte_index){
-  73   3              case 0:
-  74   3                              if (com_data[byte_index] == RECV_HANDER1){                              
-  75   4                      byte_index++;                           
-  76   4                  }else{   
-  77   4                                      byte_index = 0;
-  78   4                              }
-  79   3                  break;
-  80   3                      case 1:
-  81   3                              if (com_data[byte_index] == RECV_HANDER2){            
-  82   4                      byte_index++;
-  83   4                  }else{                              
-  84   4                                      byte_index = 0;
-  85   4                              }
-  86   3                              break;
-  87   3              case 2:
-  88   3                              if (com_data[byte_index] == UART_RECV_TOTALLEN){             
-  89   4                      byte_index++;                   
-  90   4                  }else{    
-  91   4                                      byte_index = 0;
-  92   4                              }
-  93   3                  break;
-  94   3              default:
-  95   3                  byte_index++;
-  96   3                  if (byte_index >= com_data[UART_RECV_BYTE2] || byte_index > UART_RECV_TOTALLEN){                    
-  97   4                     // handle_tft2mcu_data(com_data,byte_index); // 处理接收数据
-  98   4                                      if(handle_tft2mcu_datacheck(com_data,com_data[UART_RECV_BYTE2]) == com_data[byte_index - 1]){
-  99   5                                              handle_tft2mcu_data(com_data);  //处理数据
- 100   5                                      }
- 101   4                      byte_index = 0;
- 102   4                  }
- 103   3                  break;
- 104   3              }
- 105   2          }
- 106   1      }
- 107          
- 108          //雷达检测
- 109          void Radar_work(void)
- 110          {
- 111   1                      RadarFlag = Radar_Ischeck();
- 112   1                      if( RadarFlag)
- 113   1                      {
- 114   2                              RadarFlag = 0x01;
- 115   2                      }
- 116   1                      else
-C51 COMPILER V9.59.0.0   PROJECT                                                           01/14/2025 13:50:52 PAGE 3   
+  55          void loop_write_comunicate_data(void)
+  56          {
+  57   1          Uart1_TxData[UART_SEND_BYTE0] = SEND_HANDER1;
+  58   1              Uart1_TxData[UART_SEND_BYTE1] = SEND_HANDER2;
+  59   1              Uart1_TxData[UART_SEND_BYTE2] = UART_SEND_TOTALLEN;
+  60   1              Uart1_TxData[UART_SEND_BYTE3] =  ((Uart1_TxData[UART_SEND_BYTE3] &0xfe)| RadarFlag);
+  61   1              Uart1_TxData[UART_SEND_BYTE4] =  ((Uart1_TxData[UART_SEND_BYTE4] &0xfe)| SwitchFlag);
+  62   1              Uart1_TxData[UART_SEND_CHECK] =  handle_mcu2tft_data(Uart1_TxData,Uart1_TxData[UART_SEND_BYTE2]);
+  63   1            
+  64   1      }
+  65          
+  66          //接收数据帧处理
+  67          void loop_recv_comunicate_data(uint8_t *com_data)
+  68          {
+  69   1          static uint8_t byte_index = 0;
+  70   1          while (ringBuffer_pop(&g_comunicate_rb, com_data+byte_index))
+  71   1          {           
+  72   2              //com_data[byte_index] = ch;
+  73   2              switch (byte_index){
+  74   3              case 0:
+  75   3                              if (com_data[byte_index] == RECV_HANDER1){                              
+  76   4                      byte_index++;                           
+  77   4                  }else{   
+  78   4                                      byte_index = 0;
+  79   4                              }
+  80   3                  break;
+  81   3                      case 1:
+  82   3                              if (com_data[byte_index] == RECV_HANDER2){            
+  83   4                      byte_index++;
+  84   4                  }else{                              
+  85   4                                      byte_index = 0;
+  86   4                              }
+  87   3                              break;
+  88   3              case 2:
+  89   3                              if (com_data[byte_index] == UART_RECV_TOTALLEN){             
+  90   4                      byte_index++;                   
+  91   4                  }else{    
+  92   4                                      byte_index = 0;
+  93   4                              }
+  94   3                  break;
+  95   3              default:
+  96   3                  byte_index++;
+  97   3                  if (byte_index >= com_data[UART_RECV_BYTE2] || byte_index > UART_RECV_TOTALLEN){                    
+  98   4                     // handle_tft2mcu_data(com_data,byte_index); // 处理接收数据
+  99   4                                      if(handle_tft2mcu_datacheck(com_data,com_data[UART_RECV_BYTE2]) == com_data[byte_index - 1]){
+ 100   5                                              handle_tft2mcu_data(com_data);  //处理数据
+ 101   5                                      }
+ 102   4                      byte_index = 0;
+ 103   4                  }
+ 104   3                  break;
+ 105   3              }
+ 106   2          }
+ 107   1      }
+ 108          
+ 109          //雷达检测
+ 110          void Radar_work(void)
+ 111          {
+ 112   1                      Radar_Ischeck_Flag = Radar_Ischeck();
+ 113   1                      if( Radar_Ischeck_Flag)
+ 114   1                      {
+ 115   2                              RadarFlag = 0x01;
+ 116   2                      }
+C51 COMPILER V9.59.0.0   PROJECT                                                           01/17/2025 13:56:31 PAGE 3   
 
- 117   1                              RadarFlag = 0x00;
- 118   1      }
- 119          
- 120          void project(void)
- 121          {        
- 122   1                  
- 123   1                   if(SOCAPI_TouchKeyStatus & 0x80)
- 124   1              {
- 125   2                  SOCAPI_TouchKeyStatus &= 0x7f;
- 126   2                  exKeyValueFlag = TouchKeyScan();
- 127   2                              if(exKeyValueFlag & (1L << 0))
- 128   2                  {            
- 129   3                                      ChangeFlag = 1;
- 130   3                  }
- 131   2                              else
- 132   2                              {
- 133   3                                      if(ChangeFlag == 1)
- 134   3                                 {
- 135   4                                              ChangeFlag = 0;
- 136   4                                              SwitchFlag = (SwitchFlag == 0x01) ? 0x00 : 0x01;
- 137   4                                 }
- 138   3      
- 139   3                              }
- 140   2                              loop_write_comunicate_data();         //写入数据
- 141   2                              loop_recv_comunicate_data(Uart1_RxData); //接收数据
- 142   2                              Radar_work();                         //雷达检测
- 143   2                              if(is_200ms_tick(1))
- 144   2                              {
- 145   3                                      UART_Sendstring(Uart1_TxData);   //发送数据
- 146   3                              }
- 147   2                              //呼吸灯                
- 148   2                              if(BreatheLED)
- 149   2                                      PWMDTY1_Set();
- 150   2                  TouchKeyRestart();          
- 151   2                              
- 152   2              }
- 153   1      }
+ 117   1                      else
+ 118   1                              RadarFlag = 0x00;
+ 119   1      }
+ 120          
+ 121          void project(void)
+ 122          {        
+ 123   1                  
+ 124   1                   if(SOCAPI_TouchKeyStatus & 0x80)
+ 125   1              {
+ 126   2                  SOCAPI_TouchKeyStatus &= 0x7f;
+ 127   2                  exKeyValueFlag = TouchKeyScan();
+ 128   2                              if(exKeyValueFlag & (1L << 0))
+ 129   2                  {            
+ 130   3                                      ChangeFlag = 1;
+ 131   3                  }
+ 132   2                              else
+ 133   2                              {
+ 134   3                                      if(ChangeFlag == 1)
+ 135   3                                 {
+ 136   4                                              ChangeFlag = 0;
+ 137   4                                              SwitchFlag = (SwitchFlag == 0x01) ? 0x00 : 0x01;
+ 138   4                                 }
+ 139   3      
+ 140   3                              }
+ 141   2                              loop_write_comunicate_data();         //写入数据
+ 142   2                              loop_recv_comunicate_data(Uart1_RxData); //接收数据
+ 143   2                              Radar_work();                         //雷达检测
+ 144   2                              if(is_200ms_tick(1))
+ 145   2                              {
+ 146   3                                      UART_Sendstring(Uart1_TxData);   //发送数据
+ 147   3                              }
+ 148   2                              //呼吸灯                
+ 149   2                              if(BreatheLED)
+ 150   2                                      PWMDTY1_Set();
+ 151   2                  TouchKeyRestart();          
+ 152   2                              
+ 153   2              }
+ 154   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   1042    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =     41    ----
+   XDATA SIZE       =     42    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
